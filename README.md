@@ -262,29 +262,7 @@ Original Temp: 28 → Standardized: +1.1
 
 ---
 
-## 📉 Step 6: Dimensionality Reduction (PCA)
-
-### The Challenge
-
-We have 6 features. Can we visualize clusters in 2D without losing information?
-
-### What We Did: Principal Component Analysis (PCA)
-
-1. Computed directions of maximum variation in 6D space
-2. PC1: Direction with most variation (captures ~XX%)
-3. PC2: Second-most variation direction (captures ~YY%)
-4. Projected all points onto this 2D plane
-
-### Information Retained
-
-- PC1 + PC2 together explain ~ZZ% of all variation
-- We kept most information while enabling 2D visualization
-
-**Why?** Enables visualization of clusters and validates that algorithms found meaningful groupings
-
----
-
-## 🤖 Step 7: Clustering Analysis (Three Algorithms)
+## 🤖 Step 6: Clustering Analysis (Three Algorithms)
 
 We used **three different algorithms** because each reveals different aspects of the data:
 
@@ -453,7 +431,7 @@ Like creating a family tree:
 
 ---
 
-## 📊 Step 8: Evaluating Cluster Quality
+## 📊 Step 7: Evaluating Cluster Quality
 
 We used **three independent metrics** for robust evaluation:
 
@@ -515,7 +493,7 @@ Ratio of between-cluster variance to within-cluster variance
 
 ---
 
-## 🔍 Step 9: Cluster Profiling and Interpretation
+## 🔍 Step 8: Cluster Profiling and Interpretation
 
 For each cluster, we calculated detailed characteristics:
 
@@ -538,7 +516,7 @@ For each cluster, we calculated detailed characteristics:
 
 ---
 
-## 💡 Step 10: Algorithm Comparison
+## 💡 Step 9: Algorithm Comparison
 
 Compared all three algorithms using metrics:
 
@@ -633,7 +611,7 @@ Percentage of days in each category reveals Lagos air quality situation
 - **Python 3.8+**: Programming language
 - **Pandas**: Data manipulation, transformation, grouping
 - **NumPy**: Numerical computations and array operations
-- **Scikit-learn**: Machine learning (KMeans, DBSCAN, StandardScaler, PCA, metrics)
+- **Scikit-learn**: Machine learning (KMeans, DBSCAN, StandardScaler, metrics)
 - **SciPy**: Hierarchical clustering (linkage, fcluster, dendrogram)
 - **Matplotlib & Seaborn**: Data visualization and plots
 
@@ -665,21 +643,21 @@ Percentage of days in each category reveals Lagos air quality situation
 ### Expected Runtime:
 
 - Full notebook: 2-5 minutes (depends on system)
-- Appears to hang at: PCA calculations (normal, just takes time)
+- All calculations are fast with manageable 6 features
 
 ---
 
 ## 🎓 Key Concepts Explained Simply
 
-| Concept              | Simple Explanation                           | Why It Matters                                     |
-| -------------------- | -------------------------------------------- | -------------------------------------------------- |
-| **Clustering**       | Grouping similar items together              | Reveals natural patterns humans would miss         |
-| **Unsupervised**     | No labels provided; algorithm finds patterns | Most real-world data isn't pre-labeled             |
-| **Standardization**  | Make all measurements same scale             | Prevents large numbers dominating results          |
-| **Silhouette Score** | How tight and separated clusters are         | Quality metric: >0.7 = good clusters               |
-| **Outliers**         | Points that don't fit any pattern            | May represent anomalies, errors, or unique events  |
-| **PCA**              | Reduce dimensions while keeping information  | Enables visualization without losing meaning       |
-| **Pivot table**      | Reorganize data rows into columns            | Transform data from unusable to clusterable format |
+| Concept              | Simple Explanation                           | Why It Matters                                    |
+| -------------------- | -------------------------------------------- | ------------------------------------------------- |
+| **Clustering**       | Grouping similar items together              | Reveals natural patterns humans would miss        |
+| **Unsupervised**     | No labels provided; algorithm finds patterns | Most real-world data isn't pre-labeled            |
+| **Standardization**  | Make all measurements same scale             | Prevents large numbers dominating results         |
+| **Silhouette Score** | How tight and separated clusters are         | Quality metric: >0.7 = good clusters              |
+| **Outliers**         | Points that don't fit any pattern            | May represent anomalies, errors, or unique events |
+
+| **Pivot table** | Reorganize data rows into columns | Transform data from unusable to clusterable format |
 
 ---
 
