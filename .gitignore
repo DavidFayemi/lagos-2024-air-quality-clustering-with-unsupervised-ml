@@ -1,1 +1,9 @@
 .vscode
+/venv
+.env
+debug_download.csv
+/outputs
+.ipynb_checkpoints/
+*.csv
+document.txt
+Setup.md

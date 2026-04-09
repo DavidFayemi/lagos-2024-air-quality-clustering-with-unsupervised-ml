@@ -1,0 +1,34 @@
+name: Monthly Air Quality Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 2 1 * *'   # 1st of every month, 2AM UTC
+  
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run Notebook
+        run: python run_pipeline.py
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+      
+      - name: Upload executed notebook
+        uses: actions/upload-artifact@v4
+        with:
+          name: executed-notebook
+          path: outputs/

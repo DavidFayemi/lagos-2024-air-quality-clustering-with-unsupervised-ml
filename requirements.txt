@@ -1,0 +1,12 @@
+pandas
+numpy
+scikit-learn
+scipy
+matplotlib
+seaborn
+requests
+beautifulsoup4
+pymongo
+papermill
+python-dotenv
+jupyterlab

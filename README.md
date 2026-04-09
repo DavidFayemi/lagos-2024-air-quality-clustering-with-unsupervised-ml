@@ -1,8 +1,8 @@
-# Lagos 2024 Air Quality Clustering Using Unsupervised Machine Learning
+# Unsupervised Machine Learning Clustering for Lagos Air Quality Pattern Discovery
 
 ## Final Year Project Overview
 
-This project analyzes air quality data from Lagos, Nigeria collected throughout 2024 using machine learning clustering algorithms. The goal is to identify patterns in pollution levels across different locations and times, revealing pollution hotspots and air quality zones that can inform environmental management decisions.
+This project implements an operational air quality monitoring system for Lagos, Nigeria. Using unsupervised machine learning clustering, the system automatically processes monthly sensor data from the openAFRICA portal to discover pollution patterns across the city — identifying pollution hotspots, seasonal trends, and emission signatures that can inform environmental management decisions. Unlike a one-time analysis, the system runs continuously, updating its findings each month without manual intervention.
 
 ---
 
@@ -25,9 +25,7 @@ Using machine learning clustering, we automatically discovered natural groupings
 
 ### Source
 
-- **12 monthly CSV files** from 2024 (January through December)
-- Each file contains hourly sensor readings from multiple locations in Lagos
-- Total records: ~100,000+ hourly observations
+Monthly sensor data is automatically downloaded from the openAFRICA data portal at the start of each processing run. Each monthly file contains hourly sensor readings from multiple locations across Lagos, covering PM1, PM2.5, PM10, humidity, and temperature measurements. Data is fetched, processed, and stored without any manual file management.
 
 ### Data Structure - Original (Long Format)
 
@@ -608,7 +606,7 @@ Percentage of days in each category reveals Lagos air quality situation
 
 **Languages & Libraries:**
 
-- **Python 3.8+**: Programming language
+- **Python 3.10+**: Programming language
 - **Pandas**: Data manipulation, transformation, grouping
 - **NumPy**: Numerical computations and array operations
 - **Scikit-learn**: Machine learning (KMeans, DBSCAN, StandardScaler, metrics)
@@ -625,25 +623,38 @@ Percentage of days in each category reveals Lagos air quality situation
 ---
 
 ## 📚 How to Use This Notebook
+## Running the Pipeline
 
-### Step-by-Step Execution:
+**Prerequisites:** Python 3.10+, a MongoDB Atlas cluster, and access to the repository.
 
-1. **Open** the Jupyter notebook in VS Code or browser
-2. **Execute cells sequentially** using Ctrl+Shift+Enter or Ctrl+A then Ctrl+Enter
-3. **Review outputs** at each step:
-   - Data shapes confirm transformations
-   - Visualizations show cluster patterns
-   - Metrics confirm cluster quality
-4. **Interpret results** using cluster profiles provided
-5. **Adapt parameters** if results don't match expectations:
-   - Change K in K-Means if optimal seems wrong
-   - Adjust eps/min_samples in DBSCAN if clusters look poor
-   - Try different linkage in Hierarchical
+**Setup:**
+```bash
+# Clone and enter the project
+git clone <repository-url>
+cd <project-folder>
 
-### Expected Runtime:
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-- Full notebook: 2-5 minutes (depends on system)
-- All calculations are fast with manageable 6 features
+# Install dependencies
+pip install -r requirements.txt
+```
+
+Create a `.env` file in the project root with your MongoDB connection string:
+```
+MONGO_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
+```
+
+**Running:**
+```bash
+# Process the previous month automatically
+python run_pipeline.py
+```
+
+Results are stored in MongoDB Atlas under the `lagos_air_quality` database — cluster metrics and centroids in `processed_months`, and daily sensor observations with cluster assignments in `daily_observations`. Executed notebooks are saved to the `outputs/` folder for reference.
+
+The pipeline runs automatically on the 1st of every month via GitHub Actions, so manual execution is typically only needed for testing or reprocessing a specific month.
 
 ---
 
@@ -664,12 +675,14 @@ Percentage of days in each category reveals Lagos air quality situation
 ## 📝 Files in This Project
 
 ```
-FYP Implementation/
-├── README.md                                    (This file - explanations)
-├── Lagos(2024) Air quality clustering...       (Main Jupyter notebook)
-├── January 2024.csv to December 2024.csv       (12 monthly data files)
-├── .git/                                        (Version control directory)
-└── .gitignore                                   (Git configuration)
+lagos-air-quality/
+├── README.md                                                        
+├── run_pipeline.py
+├── Lagos(2024) Air quality clustering using unsupervised ML.ipynb
+├── .github/
+│   └── workflows/
+│       └── pipeline.yml                                             
+└── requirements.txt
 ```
 
 ---
@@ -687,13 +700,11 @@ FYP Implementation/
 
 ## 📞 Project Details
 
-- **Duration**: 2024 (12 months of data)
-- **Location**: Lagos, Nigeria
 - **Objective**: Final Year Project on Urban Air Quality Analysis
 - **Methodology**: Unsupervised Machine Learning (Clustering)
 - **Data Points Analyzed**:
-  - ~100,000 hourly readings collected
-  - ~5,000 daily aggregates used for clustering
+  - ~5,000–10,000 hourly readings per monthly run
+  - ~58 daily aggregates used for clustering per month
 - **Sensor Types**:
   - PMS5003 (Particulate Matter measurements)
   - DHT22 (Humidity and Temperature)
